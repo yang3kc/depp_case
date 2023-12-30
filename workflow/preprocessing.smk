@@ -27,3 +27,10 @@ rule extract_information:
     input: RAW_TWEETS
     output: TWEET_INFO
     shell: "python extract_information.py {input} {output}"
+
+USER_MOST_RECENT = os.path.join(INTERMEDIATE_ROOT, "user_most_recent.parquet")
+
+rule user_most_recent:
+    input: TWEET_INFO_ALL
+    output: USER_MOST_RECENT
+    shell: "python user_most_recent.py {input} {output}"
