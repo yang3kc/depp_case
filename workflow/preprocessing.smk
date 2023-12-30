@@ -16,9 +16,12 @@ YMS = ["2020-04"]
 ################################################################
 # Rules
 TWEET_INFO = os.path.join(INTERMEDIATE_ROOT, "tweet_info", "{ym}.parquet")
+TWEET_INFO_ALL = os.path.join(INTERMEDIATE_ROOT, "tweet_info", "tweet_info_all.parquet")
 
 rule extract_information_all:
     input: expand(TWEET_INFO, ym=YMS)
+    output: TWEET_INFO_ALL
+    shell: "python merge_parquet.py {input} {output}"
 
 rule extract_information:
     input: RAW_TWEETS
